@@ -58,28 +58,28 @@ def reddit_search(state: State) -> str:
     return {"reddit_results": reddit_results}
 
 def analyze_reddit_posts(state: State) -> str:
-    # Placeholder for Reddit post analysis implementation
-    return
+    #
+    return {"Selected_reddit_urls": []}
 
 def retrieve_reddit_posts(state: State) -> list:
-    # Placeholder for retrieving Reddit post data implementation
-    return
+    # 
+    return {"reddit_post_data": []}
     
 def analyze_google_results(state: State) -> str:
-    # Placeholder for Google results analysis implementation
-    return
+    # 
+    return {"google_analysis": ""}
 
 def analyze_bing_results(state: State) -> str:
-    # Placeholder for Bing results analysis implementation
-    return
+    #
+    return {"bing_analysis": ""}
 
 def analyze_reddit_results(state: State) -> str:
-    # Placeholder for Reddit results analysis implementation
-    return
+    # 
+    return {"reddit_analysis": ""}
 
-def symthesize_analyses(state: State) -> str:
-    # Placeholder for synthesizing analyses implementation
-    return
+def synthesize_analyses(state: State) -> str:
+    # 
+    return {"final_answer": ""}
 
 
 
@@ -103,15 +103,15 @@ graph_builder.add_node("synthesize_analyses", synthesize_analyses) # Pointing to
 
 
 # The nodes exist now. But they are not connected. We need to connect them in the order they should be executed. For example, the Google search node should be connected to the Google results analysis node, and so on.
-graph_builder.add_edge(START, end_key="google_search", edge_key="start_to_google_search")
-graph_builder.add_edge(START, end_key="bing_search", edge_key="start_to_bing_search")
-graph_builder.add_edge(START, end_key="reddit_search", edge_key="start_to_reddit_search")
+graph_builder.add_edge(START, end_key="google_search")
+graph_builder.add_edge(START, end_key="bing_search")
+graph_builder.add_edge(START, end_key="reddit_search")
 
 
 graph_builder.add_edge("google_search", end_key="analyze_reddit_posts")
 graph_builder.add_edge("bing_search", end_key="analyze_reddit_posts")
 graph_builder.add_edge("reddit_search", end_key="analyze_reddit_posts")
-graph_builder.add_edge(start_key="analyze_reddit_posts", end_key:"retrieve_reddit_posts")
+graph_builder.add_edge(start_key="analyze_reddit_posts", end_key="retrieve_reddit_posts")
 
 graph_builder.add_edge(start_key="retrieve_reddit_posts", end_key="analyze_google_results")
 graph_builder.add_edge(start_key="retrieve_reddit_posts", end_key="analyze_bing_results")
@@ -130,7 +130,7 @@ def run_chatbot():
     print("Multi-source Research Agent is running...")
     print("Type 'exit to quit.\n' ")  
     while True:
-        user_input() = input("Ask me anything: ")
+        user_input = input("Ask me anything: ")
         if user_input.lower() == "exit":
             print("Bis Spater Alligator!\n")
             break 
