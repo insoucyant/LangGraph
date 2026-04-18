@@ -97,9 +97,46 @@ graph_builder.add_edge(START, end_key="bing_search", edge_key="start_to_bing_sea
 graph_builder.add_edge(START, end_key="reddit_search", edge_key="start_to_reddit_search")
 
 
+graph_builder.add_edge("google_search", end_key="analyze_reddit_posts")
+graph_builder.add_edge("bing_search", end_key="analyze_reddit_posts")
+graph_builder.add_edge("reddit_search", end_key="analyze_reddit_posts")
+graph_builder.add_edge(start_key="analyze_reddit_posts", end_key:"retrieve_reddit_posts")
+
+graph_builder.add_edge(start_key="retrieve_reddit_posts", end_key="analyze_google_results")
+graph_builder.add_edge(start_key="retrieve_reddit_posts", end_key="analyze_bing_results")
+graph_builder.add_edge(start_key="retrieve_reddit_posts", end_key="analyze_reddit_results")
+
+graph_builder.add_edge(start_key="analyze_google_results", end_key="synthesize_analyses") 
+graph_builder.add_edge(start_key="analyze_bing_results", end_key="synthesize_analyses") 
+graph_builder.add_edge(start_key="analyze_reddit_results", end_key="synthesize_analyses")
+
+graph_builder.add_edge(start_key="synthesize_analyses", end_key=END)
+
+graph = graph_builder.compile() 
 
 
+def run_chatboty():
+    print("Smulti-source Research Agent is running...")
+    print("Type 'exit to quit.\n' ")
+    while True:
+        user_input() = input("Ask me anything: ")
+        if user_input.lower() == "exit":
+            print("Bis Spater Alligator!\n")
+            break 
+        state = {
+            "messages": [{"role": "user", "content": user_input}],
+            "user_question": user_input,
+            "google_results": None,
+            "bing_results": None,
+            "reddit_results": None,
+            "selected_reddit_urls": None,
+            "reddit_post_data": None,
+            "google_analysis": None,
+            "bing_analysis": None,
+            "reddit_analysis": None,
+            "final_answer": None
 
+        }
 
 
 
