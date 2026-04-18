@@ -35,16 +35,27 @@ print("Defining nodes for the graph...")
 
 
 def google_search(state: State) -> str:
-    # Placeholder for Google search implementation
-    return 
+    user_question = state.get("user_question")
+    print(f"Performing Google search for: {user_question}")
+    
+    google_results = []
+    
+    return {"google_results": google_results}
 
 def bing_search(state: State) -> str:
-    # Placeholder for Bing search implementation
-    return
+    user_question = state.get("user_question")
+    print(f"Performing Bing search for: {user_question}") 
+    
+    bing_results = []
+    
+    return {"bing_results": bing_results}
 
 def reddit_search(state: State) -> str:
-    # Placeholder for Reddit search implementation
-    return
+    user_question = state.get("user_question")
+    print(f"Performing Reddit search for: {user_question}")
+    
+    reddit_results = []
+    return {"reddit_results": reddit_results}
 
 def analyze_reddit_posts(state: State) -> str:
     # Placeholder for Reddit post analysis implementation
@@ -115,9 +126,9 @@ graph_builder.add_edge(start_key="synthesize_analyses", end_key=END)
 graph = graph_builder.compile() 
 
 
-def run_chatboty():
-    print("Smulti-source Research Agent is running...")
-    print("Type 'exit to quit.\n' ")
+def run_chatbot():
+    print("Multi-source Research Agent is running...")
+    print("Type 'exit to quit.\n' ")  
     while True:
         user_input() = input("Ask me anything: ")
         if user_input.lower() == "exit":
@@ -137,6 +148,20 @@ def run_chatboty():
             "final_answer": None
 
         }
+        
+        print("\n Starting Parallel research across Google, Bing, and Reddit...\n")
+        print("Launching Google, Bing, and Reddit search nodes in parallel...\n")
+        final_state = graph.invoke(state)
+        
+        if final_state.get("final_answer"):
+            print(f"\nFinal Answer:\n{final_state.get('final_answer')}\n")
+            
+        
+        print("-"*80)
+        
+        
+if __name__ == "__main__":
+    run_chatbot()
 
 
 
