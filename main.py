@@ -73,12 +73,36 @@ def symthesize_analyses(state: State) -> str:
 
 
 print("Create graph to connect the above nodes...")
+# In LangGraph essentially, we will create a graph where each node represents a step in the process, and edges represent the flow of information between these steps. The graph will start with the user question and end with the final answer.
+# Nodes in the graph are operations-functions.
     
     
     
-    
-    
-    
-    
+graph_builder = StateGraph(State)
+# You need to give a name to every node and point it to the function that performs the operation for that node. The graph will then use these functions to execute the steps in the process.
+graph_builder.add_node("google_search", google_search) # Pointing to the function that performs Google search
+graph_builder.add_node("bing_search", bing_search) # Pointing to the function that performs Bing search
+graph_builder.add_node("reddit_search", reddit_search) # Pointing to the function that performs Reddit search
+graph_builder.add_node("retrieve_reddit_posts", retrieve_reddit_posts) # Pointing to the function that retrieves Reddit post data
+graph_builder.add_node("analyze_reddit_posts", analyze_reddit_posts) # Pointing to the function that performs Reddit post analysis
+graph_builder.add_node("analyze_google_results", analyze_google_results) # Pointing to the function that performs Google results analysis
+graph_builder.add_node("analyze_bing_results", analyze_bing_results) # Pointing to the function that performs Bing results analysis
+graph_builder.add_node("analyze_reddit_results", analyze_reddit_results) # Pointing to the function that performs Reddit results analysis
+graph_builder.add_node("synthesize_analyses", synthesize_analyses) # Pointing to the function that synthesizes the analyses
+
+
+# The nodes exist now. But they are not connected. We need to connect them in the order they should be executed. For example, the Google search node should be connected to the Google results analysis node, and so on.
+graph_builder.add_edge(START, end_key="google_search", edge_key="start_to_google_search")
+graph_builder.add_edge(START, end_key="bing_search", edge_key="start_to_bing_search")
+graph_builder.add_edge(START, end_key="reddit_search", edge_key="start_to_reddit_search")
+
+
+
+
+
+
+
+
+
 
 print("Das Ende ist nah...")
